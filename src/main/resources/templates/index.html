@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<!--<form:form method="POST" action="/withdraw" modelAttribute="withdrawRequest">-->
+<!--    <table>-->
+<!--        <tr>-->
+<!--            <td><form:label path="bankCode">Bank code:</form:label></td><br>-->
+<!--            <td><form:input type="text" path="bankCode"/></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td><input type="submit" value="Submit"/></td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</form:form>-->
+<form action="/withdraw" modelAttribute="withdrawRequest">
+    <label for="bankCode">Bank code:</label><br>
+    <input type="text" id="bankCode" name="bankCode"><br>
+    <label for="accNum">Account number:</label><br>
+    <input type="text" id="accNum" name="accNum"><br>
+    <label for="amount">Amount:</label><br>
+    <input type="text" id="amount" name="amount"><br>
+    <label for="remark">Remark:</label><br>
+    <input type="text" id="remark" name="remark"><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

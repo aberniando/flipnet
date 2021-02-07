@@ -1,5 +1,6 @@
 package com.ando.financial.flipnet.service.impl;
 
+import com.ando.financial.flipnet.model.request.WithdrawRequest;
 import com.ando.financial.flipnet.service.MessageSendService;
 import com.ando.financial.flipnet.service.WithdrawService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,8 @@ public class WithdrawServiceImpl implements WithdrawService {
     @Autowired
     MessageSendService messageSendService;
 
-
     @Override
-    public String withdraw(String request) {
+    public String withdraw(WithdrawRequest request) {
         return null;
     }
 
