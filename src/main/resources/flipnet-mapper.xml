@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ando.financial.flipnet.mapper.FlipnetSerialMapper">
+    <resultMap id="flipnetSerial" type="com.ando.financial.flipnet.model.FlipnetSerial">
+        <id property="id" column="id"/>
+        <result property="gmtCreated" column="gmt_created"/>
+        <result property="gmtModified" column="gmt_modified"/>
+        <result property="instId" column="inst_id"/>
+        <result property="referenceId" column="reference_id"/>
+        <result property="operator" column="operator"/>
+        <result property="abilityCode" column="ability_code"/>
+        <result property="exchangeAmount" column="exchange_amount"/>
+        <result property="requestMessage" column="request_message"/>
+        <result property="responseMessage" column="response_message"/>
+        <result property="receipt" column="receipt"/>
+        <result property="merchantId" column="merchant_id"/>
+        <result property="status" column="status"/>
+        <result property="timeServed" column="time_served"/>
+        <result property="externalSerialNo" column="external_serial_no"/>
+    </resultMap>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO flipnet.flipnet_serial(
+        gmt_created, gmt_modified, inst_id, reference_id, operator, ability_code, exchange_amount,
+        request_message, response_message, receipt, merchant_id, time_served, external_serial_no, status)
+        VALUES (#{gmtCreated}, #{gmtModified}, #{instId}, #{referenceId}, #{operator}, #{abilityCode}, #{exchangeAmount},
+        #{requestMessage}, #{responseMessage}, #{receipt}, #{merchantId}, #{timeServed}, #{externalSerialNo}, #{status});
+    </insert>
+
+    <update id="withdrawUpdate">
+        UPDATE flipnet.flipnet_serial
+        SET status = #{status}, gmt_modified = NOW(), response_message = #{responseMessage},
+        external_serial_no = #{externalSerialNo}
+        <if test="requestMessage != null">
+            ,request_message = #{requestMessage}
+        </if>
+        WHERE id::text = #{id}
+    </update>
+
+    <update id="withdrawQueryUpdate">
+        UPDATE flipnet.flipnet_serial
+        SET status = #{status}, gmt_modified = NOW(), receipt = #{receipt},
+        time_served = #{timeServed}
+        WHERE id::text = #{id}
+    </update>
+
+    <select id="getWithdrawData" resultMap="flipnetSerial">
+        SELECT * FROM flipnet.flipnet_serial
+        <if test="id != 0 and merchantId != null">
+            WHERE id = #{id} AND merchant_id = #{merchantId}
+        </if>
+        <if test="id != 0 and merchantId == null">
+            WHERE id = #{id}
+        </if>
+        <if test="id == 0 and merchantId != null">
+            WHERE merchant_id = #{merchantId}
+        </if>
+    </select>
+
+    <select id="getPendingWithdraw" resultMap="flipnetSerial">
+        SELECT * FROM flipnet.flipnet_serial
+        WHERE gmt_created between #{start} and #{end} and status = 'PE'
+    </select>
+
+</mapper>

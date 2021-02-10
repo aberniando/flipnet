@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ando.financial.flipnet.mapper.AppConfigMapper">
+<!--    <resultMap id="appConfig" type="com.ando.financial.flipnet.model.AppConfig">-->
+<!--        <result property="instId" column="inst_id"/>-->
+<!--        <result property="abilityCode" column="ability_code"/>-->
+<!--        <result property="attributeValue" column="attribute_value"/>-->
+<!--        <result property="configType" column="config_type"/>-->
+<!--    </resultMap>-->
+<!--    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">-->
+<!--        INSERT INTO flipnet.flipnet_serial(-->
+<!--        gmt_created, gmt_modified, inst_id, reference_id, operator, ability_code, exchange_amount, request_message, response_message, receipt, merchant_id)-->
+<!--        VALUES (#{gmtCreated}, #{gmtModified}, #{instId}, #{referenceId}, #{operator}, #{abilityCode}, #{exchangeAmount}, #{requestMessage}, #{responseMessage}, #{receipt}, #{merchantId});-->
+<!--    </insert>-->
+
+<!--    <update id="updateReceipt">-->
+<!--        UPDATE flipnet.flipnet_serial-->
+<!--        SET receipt = #{receipt}-->
+<!--        WHERE id = #{id}-->
+<!--    </update>-->
+
+    <select id="getConfig" resultType="com.ando.financial.flipnet.model.AppConfig">
+        SELECT * FROM flipnet.app_config
+        WHERE config_type = #{configType}
+        and inst_id =  #{instId}
+        and ability_code = #{abilityCode}
+    </select>
+</mapper>

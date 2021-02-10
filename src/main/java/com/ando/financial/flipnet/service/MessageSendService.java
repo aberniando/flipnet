@@ -1,7 +1,10 @@
 package com.ando.financial.flipnet.service;
 
+import com.ando.financial.flipnet.model.request.MessageSendRequest;
+import com.ando.financial.flipnet.model.response.MessageSendResponse;
+
 public interface MessageSendService {
 
-    String send(String request);
+    MessageSendResponse send(MessageSendRequest request);
 
 }
